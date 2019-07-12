@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import 'post.dart';
 
 /// Create a layout like :
-/// A list of data
+/// A list of data from network : https://jsonplaceholder.typicode.com/posts
 class Solution extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -13,15 +16,17 @@ class Solution extends StatelessWidget {
   }
 }
 
-
-
 class App extends StatelessWidget {
-  final List<Post> _items = [];
-
-  App() {
-    for (var index = 0; index < 40; index++) {
-      _items.add(Post("title $index", "description $index"));
+  Future<List<Post>> _getItems() async {
+    final response = await http.get("https://jsonplaceholder.typicode.com/posts");
+    if (response.statusCode != 200) {
+      throw Error();
     }
+    final jsonBody = json.decode(response.body);
+    final List<Post> posts = [];
+    posts.addAll((jsonBody as List).map((post) => Post.fromJson(post)).toList());
+
+    return posts;
   }
 
   @override
@@ -30,10 +35,27 @@ class App extends StatelessWidget {
         body: SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: ListView.builder(
-          itemCount: _items.length,
-          itemBuilder: (BuildContext context, int index) {
-            return PostItem(post: _items[index]);
+        child: FutureBuilder(
+          future: _getItems(),
+          builder: (BuildContext context, AsyncSnapshot<List<Post>> snapshot) {
+            if (snapshot.hasError) {
+              return Center(
+                child: Text("error"),
+              );
+            }
+            if (snapshot.hasData) {
+              final posts = snapshot.data;
+              return ListView.builder(
+                itemCount: posts.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return PostItem(post: posts[index]);
+                },
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
           },
         ),
       ),
