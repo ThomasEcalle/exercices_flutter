@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'solution/solution.dart';
+import 'exercice.dart';
 
-void main() => runApp(Solution());
+void main() => runApp(App());

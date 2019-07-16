@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+/**********************************
+ *
+ *        PARLER DES RACCOURCIS STLESS ET STFULL
+ *
+ */
+
 /// Create a layout like :
 /// Half top of the screen represents 2 vertically squares (Yellow and Blue)
 /// Half bottom of the screen represents 2 horizontally squares (Purple and Green)
@@ -7,6 +13,17 @@ import 'package:flutter/material.dart';
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MaterialApp(
+      home: Home(),
+    );
+  }
+}
+
+class Home extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(),
+    );
   }
 }

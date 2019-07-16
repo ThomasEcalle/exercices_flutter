@@ -30,7 +30,7 @@ class App extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            title: Text("Settings"),
+            title: Text("ok"),
           ),
         ],
       ),

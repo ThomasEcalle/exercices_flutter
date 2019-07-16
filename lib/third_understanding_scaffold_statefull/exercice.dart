@@ -13,17 +13,40 @@ class Solution extends StatelessWidget {
   }
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  int _index = 0;
+  final List<Widget> lists = [
+    Center(
+      child: Text("first"),
+    ),
+    Center(
+      child: Text("second"),
+    )
+  ];
+
+  _changeTab(int newIndex) {
+    setState(() {
+      _index = newIndex;
+    });
+
+    print(_index);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("toto"),
       ),
-      body: Center(
-        child: Text("ok"),
-      ),
+      body: lists[_index],
       bottomNavigationBar: BottomNavigationBar(
+        onTap: (int index) => _changeTab(index),
+        currentIndex: _index,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

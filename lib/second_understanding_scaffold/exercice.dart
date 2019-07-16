@@ -25,12 +25,29 @@ class Solution extends StatelessWidget {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Center(
-        child: Text(
-          "Yohoho",
-          style: Theme.of(context).textTheme.display1,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("toto"),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text("Home"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            title: Text("Settings"),
+          ),
+        ],
+      ),
+      body: Container(
+        color: Colors.white,
+        child: Center(
+          child: Text(
+            "Yohoho",
+            style: Theme.of(context).textTheme.display1,
+          ),
         ),
       ),
     );
