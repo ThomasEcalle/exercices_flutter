@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_lessons/ninth_understanding_global_state/bloc/bloc/posts/post_bloc.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_lessons/ninth_understanding_global_state/bloc/bloc/posts
 import 'package:flutter_lessons/ninth_understanding_global_state/bloc/bloc/selected_post/selected_post_bloc.dart';
 import 'package:flutter_lessons/ninth_understanding_global_state/bloc/bloc/selected_post/selected_post_event.dart';
 import 'package:flutter_lessons/ninth_understanding_global_state/bloc/bloc/selected_post/selected_post_state.dart';
+import 'package:flutter_lessons/ninth_understanding_global_state/post.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -82,36 +85,66 @@ class SelectedPost extends StatelessWidget {
 }
 
 class Body extends StatelessWidget {
+  Completer<void> _refreshCompleter = Completer<void>();
+
+  Widget _buildBodyList(List<Post> posts, BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: () {
+        BlocProvider.of<PostBloc>(context).dispatch(RefreshPostEvent());
+        return _refreshCompleter.future;
+      },
+      child: ListView.builder(
+        itemCount: posts.length,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            title: Text(posts[index].title),
+            subtitle: Text(posts[index].body),
+            onTap: () =>
+                BlocProvider.of<SelectedPostBloc>(context).dispatch(SelectPostEvent(posts[index])),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PostEvent, PostState>(
-      bloc: BlocProvider.of<PostBloc>(context)..dispatch(RetrievePostEvent()),
-      builder: (BuildContext context, PostState state) {
-        if (state is PostsInitialState) {
-          return Container();
-        } else if (state is PostsLoading) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (state is PostsLoadingSuccess) {
-          final posts = state.posts;
-          return ListView.builder(
-            itemCount: posts.length,
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                title: Text(posts[index].title),
-                subtitle: Text(posts[index].body),
-                onTap: () => BlocProvider.of<SelectedPostBloc>(context)
-                    .dispatch(SelectPostEvent(posts[index])),
-              );
-            },
-          );
-        } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+    return BlocListener<PostEvent, PostState>(
+      bloc: BlocProvider.of<PostBloc>(context),
+      listener: (BuildContext context, PostState state) {
+        if (state is RefreshPostsSuccess) {
+          _refreshCompleter.complete();
         }
       },
+      child: BlocBuilder<PostEvent, PostState>(
+        bloc: BlocProvider.of<PostBloc>(context)..dispatch(RetrievePostEvent()),
+        builder: (BuildContext context, PostState state) {
+          if (state is PostsInitialState) {
+            return Container();
+          } else if (state is PostsLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is PostsLoadingSuccess) {
+            final posts = state.posts;
+            return _buildBodyList(posts, context);
+          } else if (state is RefreshPostsSuccess) {
+            final posts = state.posts;
+            return _buildBodyList(posts, context);
+          } else {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text("Error"),
+                RaisedButton(
+                  child: Text("Retry"),
+                  onPressed: () => BlocProvider.of<PostBloc>(context).dispatch(RetrievePostEvent()),
+                )
+              ],
+            );
+          }
+        },
+      ),
     );
   }
 }

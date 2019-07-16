@@ -8,3 +8,8 @@ class RetrievePostEvent extends PostEvent {
   @override
   String toString() => 'RetrievePostEvent';
 }
+
+class RefreshPostEvent extends PostEvent {
+  @override
+  String toString() => 'RefreshePostEvent';
+}

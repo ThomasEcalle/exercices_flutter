@@ -19,6 +19,15 @@ class PostsLoadingSuccess extends PostState {
   String toString() => 'PostsLoadingSuccess';
 }
 
+class RefreshPostsSuccess extends PostState {
+  RefreshPostsSuccess({this.posts});
+
+  final List<Post> posts;
+
+  @override
+  String toString() => 'RefreshPostsSuccess';
+}
+
 class PostsLoadingError extends PostState {
   @override
   String toString() => 'PostsLoadingError';
