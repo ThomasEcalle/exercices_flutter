@@ -15,27 +15,18 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: MultiBlocProvider(
-            providers: [
-              BlocProvider<PostBloc>(
-                builder: (BuildContext context) => PostBloc(),
-              ),
-              BlocProvider<SelectedPostBloc>(
-                builder: (BuildContext context) => SelectedPostBloc(),
-              ),
-            ],
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: Body(),
-                  flex: 2,
-                ),
-                Expanded(
-                  child: SelectedPost(),
-                  flex: 1,
-                ),
-              ],
-            )),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: Top(),
+              flex: 2,
+            ),
+            Expanded(
+              child: SelectedPost(),
+              flex: 1,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -84,8 +75,54 @@ class SelectedPost extends StatelessWidget {
   }
 }
 
-class Body extends StatelessWidget {
+class Top extends StatelessWidget {
+  final Function(Post) onSelected;
+
+  const Top({Key key, this.onSelected}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.black12,
+      child: Center(
+        child: RaisedButton(
+          color: Colors.white,
+          child: Text("Click"),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                final dialogSize = MediaQuery.of(context).size.width * .8;
+                return Dialog(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white24,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    height: dialogSize,
+                    width: dialogSize,
+                    child: BlocProvider(
+                      builder: (BuildContext context) => PostBloc(),
+                      child: Posts(
+                        onClick: (_) => Navigator.of(context).pop(),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class Posts extends StatelessWidget {
   Completer<void> _refreshCompleter = Completer<void>();
+  final Function(Post) onClick;
+
+  Posts({Key key, this.onClick}) : super(key: key);
 
   Widget _buildBodyList(List<Post> posts, BuildContext context) {
     return RefreshIndicator(
@@ -99,8 +136,13 @@ class Body extends StatelessWidget {
           return ListTile(
             title: Text(posts[index].title),
             subtitle: Text(posts[index].body),
-            onTap: () =>
-                BlocProvider.of<SelectedPostBloc>(context).dispatch(SelectPostEvent(posts[index])),
+            onTap: () {
+              if (onClick != null) {
+                onClick(posts[index]);
+              }
+              BlocProvider.of<SelectedPostBloc>(context)
+                  .dispatch(SelectPostEvent(posts[index]));
+            },
           );
         },
       ),
@@ -138,7 +180,8 @@ class Body extends StatelessWidget {
                 Text("Error"),
                 RaisedButton(
                   child: Text("Retry"),
-                  onPressed: () => BlocProvider.of<PostBloc>(context).dispatch(RetrievePostEvent()),
+                  onPressed: () => BlocProvider.of<PostBloc>(context)
+                      .dispatch(RetrievePostEvent()),
                 )
               ],
             );

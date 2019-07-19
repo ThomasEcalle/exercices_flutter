@@ -25,8 +25,8 @@ class _HomeState extends State<Home> {
         child: Column(
           children: <Widget>[
             Expanded(
-              child: Posts(
-                onSelected: (post) => _selectPost(post),
+              child: Top(
+                onSelected: _selectPost,
               ),
               flex: 2,
             ),
@@ -82,6 +82,51 @@ class SelectedPost extends StatelessWidget {
         ),
       );
     }
+  }
+}
+
+class Top extends StatelessWidget {
+  final Function(Post) onSelected;
+
+  const Top({Key key, this.onSelected}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.black12,
+      child: Center(
+        child: RaisedButton(
+          color: Colors.white,
+          child: Text("Click"),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                final dialogSize = MediaQuery.of(context).size.width * .8;
+                return Dialog(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white24,
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    height: dialogSize,
+                    width: dialogSize,
+                    child: Posts(
+                      onSelected: (Post post) {
+                        if (onSelected != null) {
+                          onSelected(post);
+                        }
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+        ),
+      ),
+    );
   }
 }
 
