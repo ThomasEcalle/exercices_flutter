@@ -28,13 +28,13 @@ class _HomeState extends State<Home> {
               child: Top(
                 onSelected: _selectPost,
               ),
-              flex: 2,
+              flex: 1,
             ),
             Expanded(
               child: SelectedPost(
                 post: _selectedPost,
               ),
-              flex: 1,
+              flex: 2,
             )
           ],
         ),
@@ -60,22 +60,41 @@ class SelectedPost extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                "Titre du post sélectionné !",
-                style: TextStyle(
-                  fontSize: 18,
-                ),
+              Row(
+                children: <Widget>[
+                  Text(
+                    "Titre :",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                  Flexible(
+                    child: Text(
+                      post.title,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                post.title,
-                style: TextStyle(fontWeight: FontWeight.bold),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+              SizedBox(height: 20,),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Body :",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                  Text(
+                    post.body,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ),
             ],
           ),

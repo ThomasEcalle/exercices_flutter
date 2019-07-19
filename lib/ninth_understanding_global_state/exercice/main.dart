@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'without_state_management/home.dart';
+import 'home.dart';
 
 void main() => runApp(MyApp());
 
