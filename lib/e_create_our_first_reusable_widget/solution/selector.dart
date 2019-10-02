@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 
-class SelectorController {
-  final List<String> selectedChoices = [];
-}
+typedef OnItemToggle(String choice, bool selected);
 
 class Selector extends StatelessWidget {
   final List<String> choices;
-  final SelectorController selectorController;
+  final OnItemToggle onItemToggle;
 
-  const Selector({Key key, @required this.choices, @required this.selectorController}) : super(key: key);
+  const Selector({
+    Key key,
+    @required this.choices,
+    @required this.onItemToggle,
+  }) : super(key: key);
 
-  _toggleChoiceInList(String choice) {
-    if (selectorController != null) {
-      if (selectorController.selectedChoices.contains(choice)) {
-        selectorController.selectedChoices.remove(choice);
-      } else {
-        selectorController.selectedChoices.add(choice);
-      }
+  _toggle(String choice, bool selected) {
+    if (this.onItemToggle != null) {
+      this.onItemToggle(choice, selected);
     }
   }
 
@@ -28,7 +26,7 @@ class Selector extends StatelessWidget {
       children: choices
           .map((choice) => ChoiceItem(
                 label: choice,
-                onTap: () => _toggleChoiceInList(choice),
+                onToggle: (bool selected) => _toggle(choice, selected),
               ))
           .toList(),
     );
@@ -37,9 +35,13 @@ class Selector extends StatelessWidget {
 
 class ChoiceItem extends StatefulWidget {
   final String label;
-  final VoidCallback onTap;
+  final Function(bool) onToggle;
 
-  ChoiceItem({Key key, @required this.label, @required this.onTap}) : super(key: key);
+  ChoiceItem({
+    Key key,
+    @required this.label,
+    @required this.onToggle,
+  }) : super(key: key);
 
   @override
   _ChoiceItemState createState() => _ChoiceItemState();
@@ -54,8 +56,8 @@ class _ChoiceItemState extends State<ChoiceItem> {
       label: Text(widget.label),
       selected: _isSelected,
       onSelected: (selected) {
-        if (this.widget.onTap != null) {
-          this.widget.onTap();
+        if (this.widget.onToggle != null) {
+          this.widget.onToggle(_isSelected);
         }
         setState(() {
           _isSelected = selected;

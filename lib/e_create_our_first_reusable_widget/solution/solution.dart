@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lessons/fifth_create_our_first_reusable_widget/solution/selector.dart';
+import 'package:flutter_lessons/e_create_our_first_reusable_widget/solution/selector.dart';
 
 /// Create a layout like :
-/// Create and use a "Selector" widget
-/// List of tags selectable
+/// Create and use a "Selector" widget like :
+/// Selector(
+/// choices: ["Cinema", "Sport", "Music", "Cooking", "Reading", "Netflix"],
+/// onItemToggle: _onItemToggle,
+/// ),
+/// Talk about :
+/// * Passing parameters to Widget
+/// * Rows then Wrap
+/// * Callbacks and typedef
+/// * ChoiceChip
+///
+void main() => runApp(Solution());
+
 class Solution extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -14,10 +25,18 @@ class Solution extends StatelessWidget {
 }
 
 class App extends StatelessWidget {
-  SelectorController controller = SelectorController();
+  final Set<String> chosenItems = Set();
 
   _validate() {
-    print("selected items = ${controller.selectedChoices}");
+    print("selected items = $chosenItems");
+  }
+
+  _onItemToggle(String choice, bool selected) {
+    if (selected) {
+      chosenItems.remove(choice);
+    } else {
+      chosenItems.add(choice);
+    }
   }
 
   @override
@@ -30,7 +49,7 @@ class App extends StatelessWidget {
             children: <Widget>[
               Selector(
                 choices: ["Cinema", "Sport", "Music", "Cooking", "Reading", "Netflix"],
-                selectorController: controller,
+                onItemToggle: _onItemToggle,
               ),
               RaisedButton(
                 child: Text("OK"),
