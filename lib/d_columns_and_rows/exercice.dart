@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 ///
 /// Talk about :
 /// * Columns and Rows with Text or Button
+/// * mainAxisSize and mainAxisAlignment
+/// * MediaQuery
 /// * Containers and sizes
 /// * Columns and Rows with Containers and space issue
 /// * Flex
