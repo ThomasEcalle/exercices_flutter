@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 /// Create a layout like :
-/// a Centered Text styled using  theme
-
-void main() => runApp(Solution());
+/// AppBar with title "toto"
+/// Bottom bar with 2 tabs "Home" and "Settings"
 
 class Solution extends StatelessWidget {
   @override

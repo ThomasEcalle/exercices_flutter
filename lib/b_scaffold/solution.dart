@@ -1,22 +1,11 @@
 import 'package:flutter/material.dart';
 
-/// Create a layout like :
-/// AppBar with title "toto"
-/// Bottom bar with 2 tabs "Home" and "Settings"
+void main() => runApp(Solution());
+
 class Solution extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.blue,
-        textTheme: TextTheme(
-          display1: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
-      ),
       home: App(),
     );
   }
@@ -29,6 +18,9 @@ class App extends StatelessWidget {
       appBar: AppBar(
         title: Text("toto"),
       ),
+      body: Center(
+        child: Text("ok"),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
@@ -37,18 +29,9 @@ class App extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            title: Text("Settings"),
+            title: Text("ok"),
           ),
         ],
-      ),
-      body: Container(
-        color: Colors.white,
-        child: Center(
-          child: Text(
-            "Yohoho",
-            style: Theme.of(context).textTheme.display1,
-          ),
-        ),
       ),
     );
   }
