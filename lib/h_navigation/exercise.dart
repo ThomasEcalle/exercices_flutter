@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 /// * Push named with params (onGenerateRoute)
 ///
 
+void main() => runApp(App());
+
 class Solution extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

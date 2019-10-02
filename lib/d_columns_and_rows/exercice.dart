@@ -11,6 +11,9 @@ import 'package:flutter/material.dart';
 /// * Columns and Rows with Containers and space issue
 /// * Flex
 ///
+
+void main() => runApp(App());
+
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
