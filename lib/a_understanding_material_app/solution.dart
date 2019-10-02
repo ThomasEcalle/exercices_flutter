@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 /// Create a layout like :
 /// a Centered Text styled using  theme
+
+void main() => runApp(Solution());
+
 class Solution extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -10,7 +13,7 @@ class Solution extends StatelessWidget {
         primaryColor: Colors.blue,
         textTheme: TextTheme(
           display1: TextStyle(
-            color: Colors.black,
+            color: Colors.blue,
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
