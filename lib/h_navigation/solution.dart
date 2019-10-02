@@ -5,6 +5,14 @@ import 'package:flutter/material.dart';
 /// A can go to B without params -> simple PUSH
 /// A can go to C without params -> PUSH NAMED
 /// A can go to D with params -> PUSH NAMED WITH PARAMS
+/// Talk about :
+/// * Add routes in MaterialApp
+/// * Simple push with Navigator.push
+/// * Push named
+/// * Push named with params (onGenerateRoute)
+
+void main() => runApp(Solution());
+
 class Solution extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,7 +28,9 @@ class Solution extends StatelessWidget {
           case D.routeName:
             if (arguments is DArguments) {
               return MaterialPageRoute(builder: (BuildContext context) {
-                return D(arguments: arguments,);
+                return D(
+                  arguments: arguments,
+                );
               });
             }
             break;
