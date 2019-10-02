@@ -1,4 +1,4 @@
-import 'package:flutter_lessons/ninth_understanding_global_state/post.dart';
+import 'package:flutter_lessons/i_global_state/post.dart';
 
 abstract class SelectedPostState {
   SelectedPostState([List props = const []]);

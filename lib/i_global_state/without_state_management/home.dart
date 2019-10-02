@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/api.dart';
+import 'package:flutter_lessons/i_global_state/api.dart';
 
 import '../post.dart';
 
@@ -46,7 +46,10 @@ class _HomeState extends State<Home> {
 class SelectedPost extends StatelessWidget {
   final Post post;
 
-  const SelectedPost({Key key, this.post}) : super(key: key);
+  const SelectedPost({
+    Key key,
+    this.post,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +82,9 @@ class SelectedPost extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -107,7 +112,10 @@ class SelectedPost extends StatelessWidget {
 class Top extends StatelessWidget {
   final Function(Post) onSelected;
 
-  const Top({Key key, this.onSelected}) : super(key: key);
+  const Top({
+    Key key,
+    this.onSelected,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +160,10 @@ class Top extends StatelessWidget {
 class Posts extends StatelessWidget {
   final Function(Post) onSelected;
 
-  const Posts({Key key, @required this.onSelected}) : super(key: key);
+  const Posts({
+    Key key,
+    @required this.onSelected,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

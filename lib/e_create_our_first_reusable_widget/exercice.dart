@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 /// onItemToggle: _onItemToggle,
 /// ),
 /// Talk about :
-/// * Passing parameters to Widget
+/// * Passing parameters to Widget (@required, mandatory, etc.)
 /// * Rows then Wrap
 /// * Callbacks and typedef
 /// * ChoiceChip

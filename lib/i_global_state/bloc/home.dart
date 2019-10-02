@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/bloc/bloc/posts/post_bloc.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/bloc/bloc/posts/post_event.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/bloc/bloc/posts/post_state.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/bloc/bloc/selected_post/selected_post_bloc.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/bloc/bloc/selected_post/selected_post_event.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/bloc/bloc/selected_post/selected_post_state.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/post.dart';
+import 'package:flutter_lessons/i_global_state/bloc/bloc/posts/post_bloc.dart';
+import 'package:flutter_lessons/i_global_state/bloc/bloc/posts/post_event.dart';
+import 'package:flutter_lessons/i_global_state/bloc/bloc/posts/post_state.dart';
+import 'package:flutter_lessons/i_global_state/bloc/bloc/selected_post/selected_post_bloc.dart';
+import 'package:flutter_lessons/i_global_state/bloc/bloc/selected_post/selected_post_event.dart';
+import 'package:flutter_lessons/i_global_state/bloc/bloc/selected_post/selected_post_state.dart';
+import 'package:flutter_lessons/i_global_state/post.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
 class SelectedPost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SelectedPostEvent, SelectedPostState>(
+    return BlocBuilder(
         bloc: BlocProvider.of<SelectedPostBloc>(context),
         builder: (BuildContext context, SelectedPostState state) {
           if (state is PostsSelected) {
@@ -64,7 +64,9 @@ class SelectedPost extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
@@ -74,10 +76,12 @@ class SelectedPost extends StatelessWidget {
                             fontSize: 18,
                           ),
                         ),
-                        Text(
-                          post.body,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                          overflow: TextOverflow.ellipsis,
+                        Flexible(
+                          child: Text(
+                            post.body,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ],
                     ),
@@ -97,7 +101,10 @@ class SelectedPost extends StatelessWidget {
 class Top extends StatelessWidget {
   final Function(Post) onSelected;
 
-  const Top({Key key, this.onSelected}) : super(key: key);
+  const Top({
+    Key key,
+    this.onSelected,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -137,11 +144,20 @@ class Top extends StatelessWidget {
   }
 }
 
-class Posts extends StatelessWidget {
-  Completer<void> _refreshCompleter = Completer<void>();
+class Posts extends StatefulWidget {
   final Function(Post) onClick;
 
-  Posts({Key key, this.onClick}) : super(key: key);
+  Posts({
+    Key key,
+    this.onClick,
+  }) : super(key: key);
+
+  @override
+  _PostsState createState() => _PostsState();
+}
+
+class _PostsState extends State<Posts> {
+  Completer<void> _refreshCompleter = Completer<void>();
 
   Widget _buildBodyList(List<Post> posts, BuildContext context) {
     return RefreshIndicator(
@@ -156,11 +172,10 @@ class Posts extends StatelessWidget {
             title: Text(posts[index].title),
             subtitle: Text(posts[index].body),
             onTap: () {
-              if (onClick != null) {
-                onClick(posts[index]);
+              if (widget.onClick != null) {
+                widget.onClick(posts[index]);
               }
-              BlocProvider.of<SelectedPostBloc>(context)
-                  .dispatch(SelectPostEvent(posts[index]));
+              BlocProvider.of<SelectedPostBloc>(context).dispatch(SelectPostEvent(posts[index]));
             },
           );
         },
@@ -199,8 +214,7 @@ class Posts extends StatelessWidget {
                 Text("Error"),
                 RaisedButton(
                   child: Text("Retry"),
-                  onPressed: () => BlocProvider.of<PostBloc>(context)
-                      .dispatch(RetrievePostEvent()),
+                  onPressed: () => BlocProvider.of<PostBloc>(context).dispatch(RetrievePostEvent()),
                 )
               ],
             );

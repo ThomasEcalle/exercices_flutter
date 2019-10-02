@@ -8,7 +8,7 @@ import 'package:flutter_lessons/e_create_our_first_reusable_widget/solution/sele
 /// onItemToggle: _onItemToggle,
 /// ),
 /// Talk about :
-/// * Passing parameters to Widget
+/// * Passing parameters to Widget (@required, mandatory, etc.)
 /// * Rows then Wrap
 /// * Callbacks and typedef
 /// * ChoiceChip

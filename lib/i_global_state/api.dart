@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter_lessons/ninth_understanding_global_state/post.dart';
+import 'package:flutter_lessons/i_global_state/post.dart';
 import 'package:http/http.dart' as http;
 
 class Api {

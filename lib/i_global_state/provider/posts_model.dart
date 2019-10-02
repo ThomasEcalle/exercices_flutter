@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/api.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/post.dart';
+import 'package:flutter_lessons/i_global_state/api.dart';
+import 'package:flutter_lessons/i_global_state/post.dart';
 
 class PostsModel with ChangeNotifier {
   List<Post> _posts = [];

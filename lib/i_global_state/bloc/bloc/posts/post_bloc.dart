@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/api.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/bloc/bloc/posts/post_event.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/bloc/bloc/posts/post_state.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/cache.dart';
+import 'package:flutter_lessons/i_global_state/api.dart';
+import 'package:flutter_lessons/i_global_state/bloc/bloc/posts/post_event.dart';
+import 'package:flutter_lessons/i_global_state/bloc/bloc/posts/post_state.dart';
+import 'package:flutter_lessons/i_global_state/cache.dart';
 
 class PostBloc extends Bloc<PostEvent, PostState> {
   @override

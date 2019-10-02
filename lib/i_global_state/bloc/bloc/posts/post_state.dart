@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/post.dart';
+import 'package:flutter_lessons/i_global_state/post.dart';
 
 abstract class PostState extends Equatable {
   PostState([List props = const []]) : super(props);

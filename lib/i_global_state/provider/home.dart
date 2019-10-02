@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/provider/posts_model.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/provider/selected_post_model.dart';
+import 'package:flutter_lessons/i_global_state/provider/posts_model.dart';
+import 'package:flutter_lessons/i_global_state/provider/selected_post_model.dart';
 import 'package:provider/provider.dart';
 
 import '../post.dart';
@@ -30,7 +30,10 @@ class Home extends StatelessWidget {
 class Top extends StatelessWidget {
   final Function(Post) onSelected;
 
-  const Top({Key key, this.onSelected}) : super(key: key);
+  const Top({
+    Key key,
+    this.onSelected,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +107,9 @@ class SelectedPost extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -132,7 +137,10 @@ class SelectedPost extends StatelessWidget {
 class Posts extends StatelessWidget {
   final Function(Post) onClick;
 
-  Posts({Key key, this.onClick}) : super(key: key);
+  Posts({
+    Key key,
+    this.onClick,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/bloc/bloc/selected_post/selected_post_event.dart';
-import 'package:flutter_lessons/ninth_understanding_global_state/bloc/bloc/selected_post/selected_post_state.dart';
+import 'package:flutter_lessons/i_global_state/bloc/bloc/selected_post/selected_post_event.dart';
+import 'package:flutter_lessons/i_global_state/bloc/bloc/selected_post/selected_post_state.dart';
 
 class SelectedPostBloc extends Bloc<SelectedPostEvent, SelectedPostState> {
   @override
