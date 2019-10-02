@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 /// AppBar with title "toto"
 /// Bottom bar with 2 tabs "Home" and "Settings"
 
+void main() => runApp(Solution());
+
 class Solution extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

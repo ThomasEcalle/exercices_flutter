@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 /// Create a layout like :
 /// AppBar with title "toto"
 /// Bottom bar with 2 tabs "Home" and "Settings"
-/// Handle tab change
+/// Make this tabs selectable
+///
+/// Learn the StatefulWidgets
+///
+
+void main() => runApp(Solution());
+
 class Solution extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -14,27 +20,19 @@ class Solution extends StatelessWidget {
 }
 
 class App extends StatefulWidget {
+  final List<Widget> tabs = [Home(), Settings()];
+
   @override
   _AppState createState() => _AppState();
 }
 
 class _AppState extends State<App> {
   int _index = 0;
-  final List<Widget> lists = [
-    Center(
-      child: Text("first"),
-    ),
-    Center(
-      child: Text("second"),
-    )
-  ];
 
-  _changeTab(int newIndex) {
+  _changeTab(int index) {
     setState(() {
-      _index = newIndex;
+      _index = index;
     });
-
-    print(_index);
   }
 
   @override
@@ -43,10 +41,10 @@ class _AppState extends State<App> {
       appBar: AppBar(
         title: Text("toto"),
       ),
-      body: lists[_index],
+      body: widget.tabs[_index],
       bottomNavigationBar: BottomNavigationBar(
-        onTap: (int index) => _changeTab(index),
         currentIndex: _index,
+        onTap: _changeTab,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -57,6 +55,28 @@ class _AppState extends State<App> {
             title: Text("Settings"),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class Home extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Text("Home"),
+      ),
+    );
+  }
+}
+
+class Settings extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Text("Settings"),
       ),
     );
   }
