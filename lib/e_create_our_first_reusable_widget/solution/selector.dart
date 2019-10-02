@@ -8,7 +8,11 @@ class Selector extends StatelessWidget {
   final List<String> choices;
   final SelectorController selectorController;
 
-  const Selector({Key key, @required this.choices, @required this.selectorController}) : super(key: key);
+  const Selector({
+    Key key,
+    @required this.choices,
+    @required this.selectorController,
+  }) : super(key: key);
 
   _toggleChoiceInList(String choice) {
     if (selectorController != null) {
@@ -39,7 +43,11 @@ class ChoiceItem extends StatefulWidget {
   final String label;
   final VoidCallback onTap;
 
-  ChoiceItem({Key key, @required this.label, @required this.onTap}) : super(key: key);
+  ChoiceItem({
+    Key key,
+    @required this.label,
+    @required this.onTap,
+  }) : super(key: key);
 
   @override
   _ChoiceItemState createState() => _ChoiceItemState();
