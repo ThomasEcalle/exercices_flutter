@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 
 /// Create a layout like :
 /// A list of data from network : https://jsonplaceholder.typicode.com/posts
+/// Talk about :
+/// * Futures
+/// * Make an async call with http
+/// * Using initState
+/// * Using FutureBuilder
+///
+
 class Solution extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
