@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 
 /// Create a layout like :
 /// A list of data
+/// Talsk about :
+/// * ListViews
+/// * ListTile
+
+void main() => runApp(Solution());
+
 class Solution extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,12 +26,6 @@ class Post {
 
 class App extends StatelessWidget {
   final List<Post> _items = [];
-
-  App() {
-    for (var index = 0; index < 40; index++) {
-      _items.add(Post("title $index", "description $index"));
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,10 @@ class App extends StatelessWidget {
 class PostItem extends StatelessWidget {
   final Post post;
 
-  const PostItem({Key key, this.post}) : super(key: key);
+  const PostItem({
+    Key key,
+    this.post,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
